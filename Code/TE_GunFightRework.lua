@@ -392,7 +392,7 @@ local function TE_AutoFire()
 		
         -- # Modification begin
 		local compDef
-        _, compDef = GetComponentEffectValue(weapon1, "CombatMod_ReduceAutoPenalty")
+        _, compDef = TE_GetCompEffect(weapon1, "CombatMod_ReduceAutoPenalty")
         if compDef then
             penalty = penalty - self:ResolveValue("base_penalty")
             metaText[#metaText + 1] = compDef.DisplayName
@@ -406,7 +406,7 @@ local function TE_AutoFire()
 		end
 
 		if isDeployed == false then
-			_, compDef = GetComponentEffectValue(weapon1, "CombatMod_IncreaseAutoPenalty")
+			_, compDef = TE_GetCompEffect(weapon1, "CombatMod_IncreaseAutoPenalty")
 			if compDef then
 				penalty = penalty + self:ResolveValue("base_penalty")
 				metaText[#metaText + 1] = compDef.DisplayName
@@ -469,7 +469,7 @@ local function TE_AutoFire()
 		end
 
 		local strength = attacker.Strength
-		_, compDef = GetComponentEffectValue(weapon1, "CombatMod_AutoStrength")
+		_, compDef = TE_GetCompEffect(weapon1, "CombatMod_AutoStrength")
 		if compDef then
 			strength = strength + grip_bonus
 			metaText[#metaText + 1] = compDef.DisplayName
@@ -693,7 +693,7 @@ local function TE_Aim()
 		
         -- # Modification begin
 		-- Thermal Scope
-		_, compDef = GetComponentEffectValue(weapon1, "CombatMod_AimAccuracyLimit")
+		_, compDef = TE_GetCompEffect(weapon1, "CombatMod_AimAccuracyLimit")
 		if compDef then
 			if (bonus > maxAimBonus) then
 				bonus = maxAimBonus
@@ -839,7 +839,7 @@ local function TE_BipodHeld()
 			if IsFullyAimedAttack(aim) then
 				return false, 0
 			else
-				local _, compDef = GetComponentEffectValue(weapon1, "CombatMod_BipodPenalty")
+				local _, compDef = TE_GetCompEffect(weapon1, "CombatMod_BipodPenalty")
 				if compDef then
 					local value = para_bipodPenalty
 					return not not value, value
@@ -1215,6 +1215,7 @@ end
 
 --Tactician Enhanced GunFightRework Loaded
 function OnMsg.ModsReloaded()
+	if not TE_DataReady() then return end
 	-- Stock Data Overhaul
 	if CurrentModOptions["Gunfight_Rework"] then
 		TE_GunFight_Logic()
@@ -1281,6 +1282,7 @@ function OnMsg.DataLoaded()
 	TE_BombardShots()
 end
 function OnMsg.OptionsApply()
+	if not TE_DataReady() then return end
 	-- Stock Data Overhaul
 	if CurrentModOptions["Gunfight_Rework"] then
 		TE_GunFight_Logic()

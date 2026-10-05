@@ -64,8 +64,8 @@ DefineClass.TEActivation = {
 									local weapon = unit:GetActiveWeapons()
 									local weaponRange = weapon and weapon.WeaponRange or 0
 									local enemyDist = DivCeil(unit:GetDist(enemy), const.SlabSizeX)
-									local enemyPos = (enemy:GetClosestEnemy() or enemy:GetPos()) + Rotate(point(InteractionRand(20*guim), 0, 0, InteractionRand(360*60)))
-									local enemyPoz = unit:GetClosestEnemy()
+									local enemyPos = TE_ScatterPos(enemy:GetClosestEnemy(), enemy, 20*guim)
+									local enemyPoz = TE_ToPos(unit:GetClosestEnemy()) or unit:GetPos()
 									local action = unit:GetDefaultAttackAction()
 									local action1 = CombatActions['Overwatch']
 									local action1a = CombatActions['MGSetup']
@@ -75,7 +75,7 @@ DefineClass.TEActivation = {
 									local arg = {target = enemy}
 									local args = {target = enemyPos}
 									local argz = {target = enemyPoz}
-									local results = action:GetActionResults(unit, arg)
+									local results = action and action:GetActionResults(unit, arg)
 									local ap = unit:GetMaxActionPoints()
 									local attacks, aim = unit:GetOverwatchAttacksAndAim(action, args, ap)
 									if IsMeleeRangeTarget(unit, nil, nil, enemy) and IsKindOf(weapon, "MeleeWeapon") then -- Enemy Sudden Strike!
@@ -279,7 +279,7 @@ DefineClass.TEActivation = {
 				
 				--TE Global Real HeavyWounds! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
 				local effect = target:GetStatusEffect("Wounded")
-				if effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
+				if effect and effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
 					target:AddStatusEffect("RealHeavyWounds")
 				else
 					target:RemoveStatusEffect("RealHeavyWounds")
@@ -342,7 +342,7 @@ DefineClass.TEActivation = {
 				
 				--TE Global Real HeavyWounds! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
 				local effect = target:GetStatusEffect("Wounded")
-				if effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
+				if effect and effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
 					target:AddStatusEffect("RealHeavyWounds")
 				else
 					target:RemoveStatusEffect("RealHeavyWounds")
@@ -405,7 +405,7 @@ DefineClass.TEActivation = {
 				
 				--TE Global Real HeavyWounds! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
 				local effect = target:GetStatusEffect("Wounded")
-				if effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
+				if effect and effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
 					target:AddStatusEffect("RealHeavyWounds")
 				else
 					target:RemoveStatusEffect("RealHeavyWounds")
@@ -448,7 +448,7 @@ DefineClass.TEActivation = {
 			Handler = function (self, target, patient, medic, medkit, data)
 				--TE Medicine Consumables Matters! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
 				local medicine = target:GetBandageMedicine()
-				if target == medic then
+				if medicine and target == medic then
 					if medic.Medical >= 85 and medic.Wisdom >= 90 and medic:HasStatusEffect("Caretaker") then
 						medicine.Condition = Max(0, (medicine.Condition - 15))
 					elseif medic.Medical >= 60 and medic.Wisdom >= 70 and medic:HasStatusEffect("Savior") then
@@ -463,11 +463,11 @@ DefineClass.TEActivation = {
 			Event = "OnCalcDamageAndEffects",
 			Handler = function (self, target, attacker, attack_target, action, weapon, attack_args, hit, data)
 				--TE Parry || HoldPosition! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") and not attack_args.opportunity_attack_type then
-					if action.ActionType == "Melee Attack" and attack_target:HasStatusEffect("MartialArts") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") and not (attack_args and attack_args.opportunity_attack_type) then
+					if (action and action.ActionType) == "Melee Attack" and attack_target:HasStatusEffect("MartialArts") then
 						hit.grazing = true -- [MartialArts] will trigger Grazing hit (Parry)!
 					end
-					if action.ActionType == "Ranged Attack" and (g_Overwatch[attack_target] or g_Pindown[attack_target]) and attack_target:HasStatusEffect("HoldPosition") then
+					if (action and action.ActionType) == "Ranged Attack" and (g_Overwatch[attack_target] or g_Pindown[attack_target]) and attack_target:HasStatusEffect("HoldPosition") then
 						hit.critical = nil -- [HoldPosition] will invalidate Critical hit!
 					end
 				end
@@ -477,7 +477,7 @@ DefineClass.TEActivation = {
 			Event = "OnDamageDone",
 			Handler = function (self, target, attack_target, dmg, hit_descr)
 				--TE Trigger Enemy Off-Map Artillery Support [!OPTIONAL!]
-				if target and target:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target and (attack_target ~= nil and target:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					local allEnemies = GetAllEnemyUnits(target)
 					for _, enemy in ipairs(allEnemies) do
 						local actions = { "GrenadeLauncherFire", "RocketLauncherFire", "Bombard" }
@@ -550,21 +550,21 @@ DefineClass.TEActivation = {
 						local enemyDist = DivCeil(enemy:GetDist(attacker), const.SlabSizeX)
 						if not g_Overwatch[enemy] and not g_Pindown[enemy] then
 							if attacker and attacker:IsOnEnemySide(enemy) and IsKindOf(attacker, "Unit") and attacker.enemy_visual_contact then
-								if (action.ActionType == "Melee Attack" or action.ActionType == "Ranged Attack") and not attack_args.opportunity_attack_type then
+								if ((action and action.ActionType) == "Melee Attack" or (action and action.ActionType) == "Ranged Attack") and not (attack_args and attack_args.opportunity_attack_type) then
 									if enemy ~= attack_target and enemy:HasStatusEffect("EnemyCQCReaction") and (weaponRange >= enemyDist) and ((enemyDist < 16) or (enemy:HasStatusEffect("TacticalBOW") and (enemyDist <= 20))) and not IsKindOf(weapon, "HeavyWeapon") then
 										enemy:Retaliate(attacker) -- Enemy CQC Reaction Retaliates [!OPTIONAL!]
 									end
 								end
 							end
-							if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+							if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 								local action = enemy:GetDefaultAttackAction()
 								local action1 = CombatActions['CancelShot']
 								local action1a = CombatActions['CancelShotCone']
 								local action2 = CombatActions['AutoFire']
 								local action2a = CombatActions['MGBurstFire']
 								local argz = {target = attacker}
-								local resultz = action:GetActionResults(enemy, argz)
-								if not (resultz and resultz.obstructed) then
+								local resultz = action and action:GetActionResults(enemy, argz)
+								if action and not (resultz and resultz.obstructed) then
 									if (weaponRange >= enemyDist) or (IsKindOf(weapon, "AssaultRifle") and (enemyDist <= 45)) or (IsKindOf(weapon, "SniperRifle") and (enemyDist <= 70)) then
 										if attacker.enemy_visual_contact and (g_Overwatch[attacker] or g_Pindown[attacker]) and not attacker:HasStatusEffect("HoldPosition") then
 											if not enemy:HasStatusEffect("DistractingRetaliationCounter") and not attacker:HasStatusEffect("DistractingRetaliationCounter") then
@@ -599,17 +599,17 @@ DefineClass.TEActivation = {
 									local actions = { "ThrowGrenadeA", "ThrowGrenadeB", "ThrowGrenadeC", "ThrowGrenadeD" }
 									for _, id in ipairs(actions) do
 										local action = CombatActions[id]
-										local weapons = action:GetAttackWeapons(enemy)
+										local weapons = action and action:GetAttackWeapons(enemy)
 										local enemyPos = ResolveGrenadeTargetPos(attacker, enemy:GetPos(), weapons)
 										local allyPos = ResolveGrenadeTargetPos(attack_target, enemy:GetPos(), weapons)
 										local args1 = {target = enemyPos}
 										local args2 = {target = allyPos}
-										local results1 = action:GetActionResults(enemy, args1)
-										local results2 = action:GetActionResults(enemy, args2)
-										local explosionPos1 = results1.explosion_pos
-										local explosionPos2 = results2.explosion_pos
-										local dropDist1 = DivCeil(enemyPos:Dist2D(explosionPos1), const.SlabSizeX)
-										local dropDist2 = DivCeil(allyPos:Dist2D(explosionPos2), const.SlabSizeX)
+										local results1 = TE_SafeActionResults(action, enemy, args1, weapons)
+										local results2 = TE_SafeActionResults(action, enemy, args2, weapons)
+										local explosionPos1 = (results1 and results1.explosion_pos) or enemyPos
+										local explosionPos2 = (results2 and results2.explosion_pos) or allyPos
+										local dropDist1 = (weapons and IsPoint(enemyPos) and IsPoint(explosionPos1)) and DivCeil(enemyPos:Dist2D(explosionPos1), const.SlabSizeX) or 99
+										local dropDist2 = (weapons and IsPoint(allyPos) and IsPoint(explosionPos2)) and DivCeil(allyPos:Dist2D(explosionPos2), const.SlabSizeX) or 99
 										local tileSpace = DivRound(enemy:GetDist(attack_target), const.SlabSizeX)
 										if ((attack_args and attack_args.opportunity_attack_type) or enemy:HasStatusEffect("EnemyCQCReaction")) and not enemy:HasStatusEffect("ThrowingRetaliationCounter") then
 											if (weapons and (dropDist1 <= 1)) and ((enemyDist < 16) or (enemy:HasStatusEffect("TacticalBOW") and (enemyDist <= 20))) and not enemy:IsPointBlankRange(attacker) and not attacker:HasStatusEffect("ThrowingRetaliationCounter") then
@@ -643,7 +643,7 @@ DefineClass.TEActivation = {
 			Event = "OnUnitAttackResolved",
 			Handler = function (self, target, attacker, attack_target, action, attack_args, results, can_retaliate, combat_starting)
 				--TE Global Fire Suppression Overhaul! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					if not attack_target:IsAware() or attack_target:IsDead() or attack_target:IsDowned() or attack_target:HasStatusEffect("Protected") or attack_target:HasStatusEffect("Panicked") or attack_target:HasStatusEffect("Unconscious") then return end
 					
 					local weapon = attacker:GetActiveWeapons()
@@ -652,20 +652,20 @@ DefineClass.TEActivation = {
 					local allEnemies = GetAllEnemyUnits(attacker)
 					if not (results and results.obstructed) then
 						if IsKindOf(results.weapon, "Firearm") then
-							if attack_args.opportunity_attack_type then
+							if (attack_args and attack_args.opportunity_attack_type) then
 								if CurrentModOptions["Tactical_Hardcore"] == "<GameTerm('TE_DEAD_ON_ARRIVAL')>" or CurrentModOptions["Hell_Gate"] == "<GameTerm('TE_NIGHTMARE_A')>" or CurrentModOptions["Hell_Gate"] == "<GameTerm('TE_NIGHTMARE_B')>" then
 									attacker:AddStatusEffect("SuppressionArtilleryCalled") -- Trigger Enemy Off-Map Artillery Support [!OPTIONAL!]
 								end
 								attack_target:AddStatusEffect("Suppressed")
 							end
 							if (weaponRange >= enemyDist) and HasVisibilityTo(attack_target, attacker) then
-								if attack_target.stance == "Standing" and not attack_args.opportunity_attack_type then
-									attack_target:DoChangeStance("Crouch")
+								if attack_target.stance == "Standing" and not (attack_args and attack_args.opportunity_attack_type) then
+									TE_SafeCrouch(attack_target)
 								end
 								attack_target:AddStatusEffect("SuppressionShocked")
 							end
 						end
-						if not attack_args.opportunity_attack_type and ((enemyDist > 25) or IsKindOfClasses(results.weapon, "Grenade", "HeavyWeapon")) then
+						if not (attack_args and attack_args.opportunity_attack_type) and ((enemyDist > 25) or IsKindOfClasses(results.weapon, "Grenade", "HeavyWeapon")) then
 							if CurrentModOptions["Tactical_Hardcore"] == "<GameTerm('TE_DEAD_ON_ARRIVAL')>" or CurrentModOptions["Hell_Gate"] == "<GameTerm('TE_NIGHTMARE_A')>" or CurrentModOptions["Hell_Gate"] == "<GameTerm('TE_NIGHTMARE_B')>" then
 								attacker:AddStatusEffect("SuppressionArtilleryCalled") -- Trigger Enemy Off-Map Artillery Support [!OPTIONAL!]
 							end
@@ -674,14 +674,14 @@ DefineClass.TEActivation = {
 							if enemy:HasStatusEffect("Protected") or enemy:HasStatusEffect("Panicked") or enemy:HasStatusEffect("Unconscious") then return end
 							
 							if enemy ~= attack_target and enemy:IsAware() and not enemy:IsDead() and not enemy:IsDowned() then
-								if enemy:IsPointBlankRange(attack_target) and enemy:IsOnAllySide(attack_target) and IsKindOf(enemy, "Unit") then
+								if enemy:IsPointBlankRange(attack_target) and (attack_target ~= nil and enemy:IsOnAllySide(attack_target)) and IsKindOf(enemy, "Unit") then
 									if IsKindOf(results.weapon, "Firearm") then
-										if attack_args.opportunity_attack_type then
+										if (attack_args and attack_args.opportunity_attack_type) then
 											enemy:AddStatusEffect("Suppressed")
 										end
 										if (weaponRange >= enemyDist) and HasVisibilityTo(attack_target, attacker) then
-											if enemy.stance == "Standing" and not attack_args.opportunity_attack_type then
-												enemy:DoChangeStance("Crouch")
+											if enemy.stance == "Standing" and not (attack_args and attack_args.opportunity_attack_type) then
+												TE_SafeCrouch(enemy)
 											end
 											enemy:AddStatusEffect("SuppressionShocked")
 										end

@@ -1,6 +1,6 @@
 --Defs_Firearm
 local function checkID(id)
-    if not InventoryItemDefs[id] and not _G[id] then
+    if not InventoryItemDefs[id] or not _G[id] then
         return false
     end
     return true
@@ -419,6 +419,7 @@ end
 
 -- Load Changes
 function OnMsg.ModsReloaded()
+	if not TE_DataReady() then return end
 	if CurrentModOptions["Gunfight_Rework"] then
 		TE_Handgun()
 		TE_Shotgun()
@@ -443,6 +444,7 @@ function OnMsg.DataLoaded()
 	end
 end
 function OnMsg.OptionsApply()
+	if not TE_DataReady() then return end
 	if CurrentModOptions["Gunfight_Rework"] then
 		TE_Handgun()
 		TE_Shotgun()

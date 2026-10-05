@@ -12,6 +12,7 @@ local function checkID(id)
 end
 
 local function TE_AIM(id, level, hp, agi, dex, str, wis, lds, mkm, mec, exps, med, perk, equip, gearFunc)
+    if not checkID(id) then return end
     local defs = UnitDataDefs[id]
     local load = _G[id]
 
@@ -97,6 +98,7 @@ local function TE_AIM(id, level, hp, agi, dex, str, wis, lds, mkm, mec, exps, me
 end
 
 local function TE_Nationality(id, nation)
+    if not UnitDataDefs[id] or not _G[id] then return end
     local defs = UnitDataDefs[id]
     local load = _G[id]
 
@@ -2283,6 +2285,7 @@ PlaceObj('MercNationalities', {
 
 --Tactician Enhanced Tactical A.I.M. Overhaul Loaded
 function OnMsg.ModsReloaded()
+	if not TE_DataReady() then return end
 	if CurrentModOptions["Tactical_AIM"] then
 		gen_TacticalAIM()
 		gen_AIM_Nationality()
@@ -2295,6 +2298,7 @@ function OnMsg.DataLoaded()
 	end
 end
 function OnMsg.OptionsApply()
+	if not TE_DataReady() then return end
 	if CurrentModOptions["Tactical_AIM"] then
 		gen_TacticalAIM()
 		gen_AIM_Nationality()

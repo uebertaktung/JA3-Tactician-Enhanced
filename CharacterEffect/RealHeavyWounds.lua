@@ -13,7 +13,7 @@ DefineClass.RealHeavyWounds = {
 				--TE Global Real HeavyWounds! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
 				local effect = target:GetStatusEffect("Wounded")
 				if g_Combat or g_StartingCombat or g_TestingSaveLoadSystem then
-					if target == attacker and not attack_args.opportunity_attack_type and effect.stacks >= 5 then
+					if target == attacker and not (attack_args and attack_args.opportunity_attack_type) and effect.stacks >= 5 then
 						attacker.ActionPoints = 0 -- force to re-stabilize the heart rhythm
 					end
 					ObjModified(attacker)

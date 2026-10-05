@@ -11,7 +11,7 @@ DefineClass.SuppressionArtilleryCalled = {
 			Event = "OnUnitAttackResolved",
 			Handler = function (self, target, attacker, attack_target, action, attack_args, results, can_retaliate, combat_starting)
 				--TE Off-Map Artillery Strike [!OPTIONAL!]
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					local effect = attacker:GetStatusEffect("SuppressionArtilleryCalled")
 					local weapon = attacker:GetActiveWeapons()
 					local enemyDist = DivCeil(attacker:GetDist(attack_target), const.SlabSizeX)
@@ -19,10 +19,10 @@ DefineClass.SuppressionArtilleryCalled = {
 						local allEnemies = GetAllEnemyUnits(attacker)
 						for _, enemy in ipairs(allEnemies) do -- Enemy Signaller Calling Off-Map Artillery Strike!
 							if (enemy:IsAware() and not enemy:IsDead() and not enemy:IsDowned()) and (not enemy:HasStatusEffect("Protected") and not enemy:HasStatusEffect("Panicked") and not enemy:HasStatusEffect("Unconscious") and not enemy:HasStatusEffect("ZombiePerk")) then
-								if enemy ~= attack_target and enemy:IsOnAllySide(attack_target) and IsKindOf(enemy, "Unit") then
-									if attack_args.opportunity_attack_type and IsKindOf(results.weapon, "Firearm") then
+								if enemy ~= attack_target and (attack_target ~= nil and enemy:IsOnAllySide(attack_target)) and IsKindOf(enemy, "Unit") then
+									if (attack_args and attack_args.opportunity_attack_type) and IsKindOf(results.weapon, "Firearm") then
 										enemy:TE_AIArtilleryStrike(attacker)
-									elseif not attack_args.opportunity_attack_type and ((enemyDist > 25) or IsKindOfClasses(results.weapon, "Grenade", "HeavyWeapon")) then
+									elseif not (attack_args and attack_args.opportunity_attack_type) and ((enemyDist > 25) or IsKindOfClasses(results.weapon, "Grenade", "HeavyWeapon")) then
 										enemy:TE_AIArtilleryStrike(attacker)
 									end
 								end

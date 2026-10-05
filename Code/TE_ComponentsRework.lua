@@ -135,11 +135,11 @@ local function TE_Bipod(ratio)
     TE_Component("Bipod_MG42",                 (10*ratio),  0,  	nil,    eff_1,  para_1)
     TE_Component("Bipod",                      (10*ratio),  0,  	nil,    eff_1,  para_1)
 	--
-	g_PresetParamCache[WeaponComponents.AK47_Bipod]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod_Under]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod_Galil]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod_MG42]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod]["AccuracyBonusProne"] 	             = 25
+	TE_SetParamCache(WeaponComponents.AK47_Bipod, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod_Under, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod_Galil, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod_MG42, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod, "AccuracyBonusProne", 25)
 end
 
 local function TE_Grip(ratio)
@@ -234,9 +234,9 @@ local function TE_Muzzle(ratio)
     TE_Component("DuckbillChoke",              10*ratio,	0,      nil,    eff_3,  para_3)
     TE_Component("FullChoke",                  10*ratio,	0,      nil,    eff_4,  para_4)
 	--
-	g_PresetParamCache[WeaponComponents.DuckbillChoke]["BuckshotAngleIncrease"] = 120
-	g_PresetParamCache[WeaponComponents.FullChoke]["RangeIncrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.FullChoke]["BuckshotAngleDecrease"] 	= 80
+	TE_SetParamCache(WeaponComponents.DuckbillChoke, "BuckshotAngleIncrease", 120)
+	TE_SetParamCache(WeaponComponents.FullChoke, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.FullChoke, "BuckshotAngleDecrease", 80)
 end
 
 local function TE_Suppressor(ratio)
@@ -270,10 +270,10 @@ local function TE_Suppressor(ratio)
     TE_Component("Suppressor",                     10*ratio, 	0,      pipe,   eff_2,  para_2)
     TE_Component("Suppressor_Anaconda",            10*ratio, 	0,      pipe,   eff_2,  para_2)
 	--
-	g_PresetParamCache[WeaponComponents.ImprovisedSuppressor]["ReliabilityDecrease"] 	        = dura_mod
-	g_PresetParamCache[WeaponComponents.ImprovisedSuppressor_Anaconda]["ReliabilityDecrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.Suppressor]["stealth_kill_bonus"] 			            = stealth_kill
-	g_PresetParamCache[WeaponComponents.Suppressor_Anaconda]["stealth_kill_bonus"] 		        = stealth_kill
+	TE_SetParamCache(WeaponComponents.ImprovisedSuppressor, "ReliabilityDecrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.ImprovisedSuppressor_Anaconda, "ReliabilityDecrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.Suppressor, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.Suppressor_Anaconda, "stealth_kill_bonus", stealth_kill)
 end
 
 local function TE_Barrel(ratio)
@@ -505,37 +505,37 @@ local function TE_Barrel(ratio)
     TE_Component("BarrelShort_Winchester",     15*ratio, 	10,		pipe,   eff_9,  para_9)
     TE_Component("Barrel50BMG_DesertEagle",    15*ratio, 	10,		pipe,   eff_A,  para_A)
 	--
-	g_PresetParamCache[WeaponComponents.BarrelShort]["ShootAPDecrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort]["RangeDecrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShort_AUG]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort_AUG]["RangeDecrease"] 				= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLong]["RangeIncrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLong]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.BarrelLong_AUG]["AccuracyBonusProne"] 			= 25
-	g_PresetParamCache[WeaponComponents.BarrelLong_AUG]["RangeIncrease"] 				= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLong_AUG]["AimAccuracyIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.BarrelNormalImproved]["AimAccuracyIncrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.BarrelNormalImproved]["ReliabilityIncrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved]["ShootAPDecrease"] 		= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved]["RangeDecrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved]["ReliabilityIncrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved_AUG]["ShootAPDecrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved_AUG]["RangeDecrease"] 		= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved_AUG]["ReliabilityIncrease"] = dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved]["RangeIncrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved]["AimAccuracyIncrease"] 	    = 2
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved]["ReliabilityIncrease"] 		= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["AccuracyBonusProne"] 	= 25
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["RangeIncrease"] 		= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["AimAccuracyIncrease"]  = 2
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["ReliabilityIncrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelHeavy]["DamageIncrease"] 					= 7
-	g_PresetParamCache[WeaponComponents.BarrelHeavy]["AimAccuracyIncrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort_Winchester]["ShootAPDecrease"] 		= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort_Winchester]["RangeDecrease"] 		= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShort_Winchester]["MagazineSizeDecrease"] = 2
-	g_PresetParamCache[WeaponComponents.Barrel50BMG_DesertEagle]["DamageIncrease"] 		= 14
-	g_PresetParamCache[WeaponComponents.Barrel50BMG_DesertEagle]["ReliabilityDecrease"] = dura_mod
+	TE_SetParamCache(WeaponComponents.BarrelShort, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShort_AUG, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort_AUG, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLong, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLong, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelLong_AUG, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.BarrelLong_AUG, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLong_AUG, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelNormalImproved, "AimAccuracyIncrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelNormalImproved, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved_AUG, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved_AUG, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved_AUG, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelHeavy, "DamageIncrease", 7)
+	TE_SetParamCache(WeaponComponents.BarrelHeavy, "AimAccuracyIncrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort_Winchester, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort_Winchester, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShort_Winchester, "MagazineSizeDecrease", 2)
+	TE_SetParamCache(WeaponComponents.Barrel50BMG_DesertEagle, "DamageIncrease", 14)
+	TE_SetParamCache(WeaponComponents.Barrel50BMG_DesertEagle, "ReliabilityDecrease", dura_mod)
 end
 
 local function TE_Barrel_Shotgun(ratio)
@@ -695,24 +695,24 @@ local function TE_Barrel_Shotgun(ratio)
     TE_Component("Auto5_Long_NMag",            15*ratio, 	10,		pipe,   eff_6,  para_6)
     TE_Component("Auto5_Short_NMag",           15*ratio, 	10,		pipe,   eff_7,  para_7)
 	--
-	g_PresetParamCache[WeaponComponents.BarrelLongShotgun]["RangeIncrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongShotgun]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun]["ShootAPDecrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun]["RangeDecrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun]["BuckshotAngleIncrease"]			= 120
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["MagazineSizeDecrease"] 	= 2
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["RangeDecrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["BuckshotAngleIncrease"]	= 120
-	g_PresetParamCache[WeaponComponents.Auto5_Long_LMag]["RangeIncrease"] 						= range_mod
-	g_PresetParamCache[WeaponComponents.Auto5_Long_LMag]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.Auto5_Long_LMag]["MagazineSizeMultiplier"] 				= 150
-	g_PresetParamCache[WeaponComponents.Auto5_Long_NMag]["RangeIncrease"] 						= range_mod
-	g_PresetParamCache[WeaponComponents.Auto5_Long_NMag]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.Auto5_Basic_LMag]["MagazineSizeMultiplier"] 			= 150
-	g_PresetParamCache[WeaponComponents.Auto5_Short_NMag]["ShootAPDecrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.Auto5_Short_NMag]["RangeDecrease"] 						= range_mod
-	g_PresetParamCache[WeaponComponents.Auto5_Short_NMag]["BuckshotAngleIncrease"]				= 120
+	TE_SetParamCache(WeaponComponents.BarrelLongShotgun, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongShotgun, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun, "BuckshotAngleIncrease", 120)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "MagazineSizeDecrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "BuckshotAngleIncrease", 120)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_LMag, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_LMag, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_LMag, "MagazineSizeMultiplier", 150)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_NMag, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_NMag, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.Auto5_Basic_LMag, "MagazineSizeMultiplier", 150)
+	TE_SetParamCache(WeaponComponents.Auto5_Short_NMag, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.Auto5_Short_NMag, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.Auto5_Short_NMag, "BuckshotAngleIncrease", 120)
 end
 
 local function TE_Stock(ratio)
@@ -797,16 +797,16 @@ local function TE_Stock(ratio)
     TE_Component("StockLight_AR_BurstOnly",    15*ratio,  	10,   	nil,    eff_6,  para_3)
     TE_Component("StockBump",                  15*ratio,  	10,   	nil,    eff_7,  nil)
 	--
-	g_PresetParamCache[WeaponComponents.StockNo]["ShootAPDecrease"] 					= 2
-	g_PresetParamCache[WeaponComponents.StockNo]["accuracy_penalty"] 					= -75
-	g_PresetParamCache[WeaponComponents.StockFolded]["ShootAPDecrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.StockFolded]["accuracy_penalty"] 				= -75
-	g_PresetParamCache[WeaponComponents.StockHeavy]["ShootAPIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.StockLight]["ShootAPDecrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.StockLight]["accuracy_penalty"] 				= -50
-	g_PresetParamCache[WeaponComponents.StockHeavy_AR_BurstOnly]["ShootAPIncrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.StockLight_AR_BurstOnly]["ShootAPDecrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.StockLight_AR_BurstOnly]["accuracy_penalty"] 	= -50
+	TE_SetParamCache(WeaponComponents.StockNo, "ShootAPDecrease", 2)
+	TE_SetParamCache(WeaponComponents.StockNo, "accuracy_penalty", -75)
+	TE_SetParamCache(WeaponComponents.StockFolded, "ShootAPDecrease", 2)
+	TE_SetParamCache(WeaponComponents.StockFolded, "accuracy_penalty", -75)
+	TE_SetParamCache(WeaponComponents.StockHeavy, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.StockHeavy_AR_BurstOnly, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight_AR_BurstOnly, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight_AR_BurstOnly, "accuracy_penalty", -50)
 end
 
 local function TE_Scope(ratio)
@@ -926,15 +926,15 @@ local function TE_Scope(ratio)
     TE_Component("ReflexSightAdvanced",        10*ratio, 	0,   	chip,   eff_8,  nil)
     TE_Component("ReflexSightAdvanced_Glock",  10*ratio, 	0,   	chip,   eff_8,  nil)
 	--
-	g_PresetParamCache[WeaponComponents.LROptics]["MaxAimActionsIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.LROptics]["ShootAPIncrease"] 					    = 1
-	g_PresetParamCache[WeaponComponents.LROptics_DragunovDefault]["MaxAimActionsIncrease"]	= 1
-	g_PresetParamCache[WeaponComponents.LROptics_DragunovDefault]["ShootAPIncrease"]	    = 1
-	g_PresetParamCache[WeaponComponents.PSG_DefaultScope]["MaxAimActionsIncrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.PSG_DefaultScope]["ShootAPIncrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.LROpticsAdvanced]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.LROpticsAdvanced]["ShootAPIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.ReflexSight]["OverwatchAngleIncrease"] 				= 150
+	TE_SetParamCache(WeaponComponents.LROptics, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROptics, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROptics_DragunovDefault, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROptics_DragunovDefault, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.PSG_DefaultScope, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.PSG_DefaultScope, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROpticsAdvanced, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.LROpticsAdvanced, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.ReflexSight, "OverwatchAngleIncrease", 150)
 end
 
 local function TE_Side(ratio)
@@ -983,10 +983,10 @@ local function TE_Side(ratio)
     TE_Component("LaserDot_Anaconda",      10*ratio,  	10, 	chip, 	eff_3,  nil)
     TE_Component("UVDot_Anaconda",         10*ratio,  	10, 	chip, 	eff_4,  nil)
 	--
-	g_PresetParamCache[WeaponComponents.FlashlightDot]["stealth_kill_bonus"] 			= stealth_kill
-	g_PresetParamCache[WeaponComponents.FlashlightDot_aa12]["stealth_kill_bonus"] 		= stealth_kill
-	g_PresetParamCache[WeaponComponents.FlashlightDot_PSG_M1]["stealth_kill_bonus"] 	= stealth_kill
-	g_PresetParamCache[WeaponComponents.FlashlightDot_Anaconda]["stealth_kill_bonus"] 	= stealth_kill
+	TE_SetParamCache(WeaponComponents.FlashlightDot, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.FlashlightDot_aa12, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.FlashlightDot_PSG_M1, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.FlashlightDot_Anaconda, "stealth_kill_bonus", stealth_kill)
 end
 
 
@@ -1024,24 +1024,24 @@ local function TE_Bipod_MoW(ratio)
     TE_Component("MoW_BipE_RIS",               (10*ratio),  0,  	nil,    eff_1,  para_1)
     TE_Component("MoW_BipE_Civlife",           (10*ratio),  0,  	nil,    eff_1,  para_1)
 	--
-	g_PresetParamCache[WeaponComponents.AK47_Bipod]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod_Under]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod_Galil]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod_MG42]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.Bipod]["AccuracyBonusProne"] 	             = 25
-	g_PresetParamCache[WeaponComponents.MoW_Bip_AWSM]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_Bip_SG550]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_Bip_SG550_1]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_BipE_Chey]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_BipE_Lynx]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_Bip_MAG]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.MoW_Bip_RPD]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.MoW_Bip_NG7]["AccuracyBonusProne"] 	         = 25
-	g_PresetParamCache[WeaponComponents.MoW_BipE_AANF1]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_BipE_PKP]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_Bip_Atlas]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_BipE_RIS]["AccuracyBonusProne"] 	     = 25
-	g_PresetParamCache[WeaponComponents.MoW_BipE_Civlife]["AccuracyBonusProne"] 	 = 25
+	TE_SetParamCache(WeaponComponents.AK47_Bipod, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod_Under, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod_Galil, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod_MG42, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.Bipod, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_Bip_AWSM, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_Bip_SG550, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_Bip_SG550_1, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_BipE_Chey, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_BipE_Lynx, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_Bip_MAG, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_Bip_RPD, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_Bip_NG7, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_BipE_AANF1, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_BipE_PKP, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_Bip_Atlas, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_BipE_RIS, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.MoW_BipE_Civlife, "AccuracyBonusProne", 25)
 end
 
 local function TE_Grip_MoW(ratio)
@@ -1185,9 +1185,9 @@ local function TE_Muzzle_MoW(ratio)
     TE_Component("MoW_Muz_M240",               10*ratio,	0,      nil,    eff_2,  "n/a")
     TE_Component("MoW_Muz_NG7",                10*ratio,	0,      nil,    eff_2,  "n/a")
 	--
-	g_PresetParamCache[WeaponComponents.DuckbillChoke]["BuckshotAngleIncrease"] = 120
-	g_PresetParamCache[WeaponComponents.FullChoke]["RangeIncrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.FullChoke]["BuckshotAngleDecrease"] 	= 80
+	TE_SetParamCache(WeaponComponents.DuckbillChoke, "BuckshotAngleIncrease", 120)
+	TE_SetParamCache(WeaponComponents.FullChoke, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.FullChoke, "BuckshotAngleDecrease", 80)
 end
 
 local function TE_Suppressor_MoW(ratio)
@@ -1253,42 +1253,42 @@ local function TE_Suppressor_MoW(ratio)
     TE_Component("MoW_Muz_M200Supr",               10*ratio, 	0,      pipe,   eff_2,  para_2)
     TE_Component("MoW_Muz_SR25",                   10*ratio, 	0,      pipe,   eff_2,  para_2)
 	--
-	g_PresetParamCache[WeaponComponents.ImprovisedSuppressor]["ReliabilityDecrease"] 	        = dura_mod
-	g_PresetParamCache[WeaponComponents.ImprovisedSuppressor_Anaconda]["ReliabilityDecrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.Suppressor]["stealth_kill_bonus"] 			            = stealth_kill
-	g_PresetParamCache[WeaponComponents.Suppressor_Anaconda]["stealth_kill_bonus"] 		        = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Harvester]["stealth_kill_bonus"] 	            = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_AEM5]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Omega45]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_416SD]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_SF762RC2]["stealth_kill_bonus"] 	            = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_SF556RC2]["stealth_kill_bonus"] 	            = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_DTKP]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_M42000]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_SDN6]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_RotexIII]["stealth_kill_bonus"] 	            = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_PBS1]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_TGPA]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Spectre]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Rev45]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Rev9]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Omega9]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Obs9s]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Obs9]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_N4]["stealth_kill_bonus"] 	                    = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Phantom]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_HB]["stealth_kill_bonus"] 	                    = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_MP7Supr]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_PBS9]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_Vector]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_MP9]["stealth_kill_bonus"] 	                    = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_APS]["stealth_kill_bonus"] 	                    = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_PB]["stealth_kill_bonus"] 	                    = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_PM]["stealth_kill_bonus"] 	                    = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_DTSS338]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_AWSM]["stealth_kill_bonus"] 	                = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_M200Supr]["stealth_kill_bonus"] 	            = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Muz_SR25]["stealth_kill_bonus"] 	                = stealth_kill
+	TE_SetParamCache(WeaponComponents.ImprovisedSuppressor, "ReliabilityDecrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.ImprovisedSuppressor_Anaconda, "ReliabilityDecrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.Suppressor, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.Suppressor_Anaconda, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Harvester, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_AEM5, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Omega45, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_416SD, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_SF762RC2, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_SF556RC2, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_DTKP, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_M42000, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_SDN6, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_RotexIII, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_PBS1, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_TGPA, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Spectre, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Rev45, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Rev9, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Omega9, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Obs9s, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Obs9, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_N4, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Phantom, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_HB, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_MP7Supr, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_PBS9, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_Vector, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_MP9, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_APS, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_PB, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_PM, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_DTSS338, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_AWSM, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_M200Supr, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Muz_SR25, "stealth_kill_bonus", stealth_kill)
 end
 
 local function TE_Barrel_MoW(ratio)
@@ -1520,37 +1520,37 @@ local function TE_Barrel_MoW(ratio)
     TE_Component("BarrelShort_Winchester",     15*ratio, 	10,		pipe,   eff_9,  para_9)
     TE_Component("Barrel50BMG_DesertEagle",    15*ratio, 	10,		pipe,   eff_A,  para_A)
 	--
-	g_PresetParamCache[WeaponComponents.BarrelShort]["ShootAPDecrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort]["RangeDecrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShort_AUG]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort_AUG]["RangeDecrease"] 				= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLong]["RangeIncrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLong]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.BarrelLong_AUG]["AccuracyBonusProne"] 			= 25
-	g_PresetParamCache[WeaponComponents.BarrelLong_AUG]["RangeIncrease"] 				= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLong_AUG]["AimAccuracyIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.BarrelNormalImproved]["AimAccuracyIncrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.BarrelNormalImproved]["ReliabilityIncrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved]["ShootAPDecrease"] 		= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved]["RangeDecrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved]["ReliabilityIncrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved_AUG]["ShootAPDecrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved_AUG]["RangeDecrease"] 		= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortImproved_AUG]["ReliabilityIncrease"] = dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved]["RangeIncrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved]["AimAccuracyIncrease"] 	    = 2
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved]["ReliabilityIncrease"] 		= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["AccuracyBonusProne"] 	= 25
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["RangeIncrease"] 		= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["AimAccuracyIncrease"]  = 2
-	g_PresetParamCache[WeaponComponents.BarrelLongImproved_AUG]["ReliabilityIncrease"] 	= dura_mod
-	g_PresetParamCache[WeaponComponents.BarrelHeavy]["DamageIncrease"] 					= 7
-	g_PresetParamCache[WeaponComponents.BarrelHeavy]["AimAccuracyIncrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort_Winchester]["ShootAPDecrease"] 		= 1
-	g_PresetParamCache[WeaponComponents.BarrelShort_Winchester]["RangeDecrease"] 		= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShort_Winchester]["MagazineSizeDecrease"] = 2
-	g_PresetParamCache[WeaponComponents.Barrel50BMG_DesertEagle]["DamageIncrease"] 		= 14
-	g_PresetParamCache[WeaponComponents.Barrel50BMG_DesertEagle]["ReliabilityDecrease"] = dura_mod
+	TE_SetParamCache(WeaponComponents.BarrelShort, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShort_AUG, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort_AUG, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLong, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLong, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelLong_AUG, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.BarrelLong_AUG, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLong_AUG, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelNormalImproved, "AimAccuracyIncrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelNormalImproved, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved_AUG, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved_AUG, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortImproved_AUG, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "AccuracyBonusProne", 25)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelLongImproved_AUG, "ReliabilityIncrease", dura_mod)
+	TE_SetParamCache(WeaponComponents.BarrelHeavy, "DamageIncrease", 7)
+	TE_SetParamCache(WeaponComponents.BarrelHeavy, "AimAccuracyIncrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort_Winchester, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShort_Winchester, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShort_Winchester, "MagazineSizeDecrease", 2)
+	TE_SetParamCache(WeaponComponents.Barrel50BMG_DesertEagle, "DamageIncrease", 14)
+	TE_SetParamCache(WeaponComponents.Barrel50BMG_DesertEagle, "ReliabilityDecrease", dura_mod)
 end
 
 local function TE_Barrel_Shotgun_MoW(ratio)
@@ -1711,26 +1711,26 @@ local function TE_Barrel_Shotgun_MoW(ratio)
     TE_Component("Auto5_Short_NMag",           15*ratio, 	10,		pipe,   eff_7,  para_7)
     TE_Component("MoW_Bar_MP153_280",          15*ratio, 	10,		pipe,   eff_1,  para_1)
 	--
-	g_PresetParamCache[WeaponComponents.BarrelLongShotgun]["RangeIncrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelLongShotgun]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun]["ShootAPDecrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun]["RangeDecrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun]["BuckshotAngleIncrease"]			= 120
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["MagazineSizeDecrease"] 	= 2
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["RangeDecrease"] 			= range_mod
-	g_PresetParamCache[WeaponComponents.BarrelShortShotgun_Benelli]["BuckshotAngleIncrease"]	= 120
-	g_PresetParamCache[WeaponComponents.Auto5_Long_LMag]["RangeIncrease"] 						= range_mod
-	g_PresetParamCache[WeaponComponents.Auto5_Long_LMag]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.Auto5_Long_LMag]["MagazineSizeMultiplier"] 				= 150
-	g_PresetParamCache[WeaponComponents.Auto5_Long_NMag]["RangeIncrease"] 						= range_mod
-	g_PresetParamCache[WeaponComponents.Auto5_Long_NMag]["AimAccuracyIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.Auto5_Basic_LMag]["MagazineSizeMultiplier"] 			= 150
-	g_PresetParamCache[WeaponComponents.Auto5_Short_NMag]["ShootAPDecrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.Auto5_Short_NMag]["RangeDecrease"] 						= range_mod
-	g_PresetParamCache[WeaponComponents.Auto5_Short_NMag]["BuckshotAngleIncrease"]				= 120
-	g_PresetParamCache[WeaponComponents.MoW_Bar_MP153_280]["RangeIncrease"] 					= range_mod
-	g_PresetParamCache[WeaponComponents.MoW_Bar_MP153_280]["AimAccuracyIncrease"] 				= 2
+	TE_SetParamCache(WeaponComponents.BarrelLongShotgun, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelLongShotgun, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun, "BuckshotAngleIncrease", 120)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "MagazineSizeDecrease", 2)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.BarrelShortShotgun_Benelli, "BuckshotAngleIncrease", 120)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_LMag, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_LMag, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_LMag, "MagazineSizeMultiplier", 150)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_NMag, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.Auto5_Long_NMag, "AimAccuracyIncrease", 2)
+	TE_SetParamCache(WeaponComponents.Auto5_Basic_LMag, "MagazineSizeMultiplier", 150)
+	TE_SetParamCache(WeaponComponents.Auto5_Short_NMag, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.Auto5_Short_NMag, "RangeDecrease", range_mod)
+	TE_SetParamCache(WeaponComponents.Auto5_Short_NMag, "BuckshotAngleIncrease", 120)
+	TE_SetParamCache(WeaponComponents.MoW_Bar_MP153_280, "RangeIncrease", range_mod)
+	TE_SetParamCache(WeaponComponents.MoW_Bar_MP153_280, "AimAccuracyIncrease", 2)
 end
 
 local function TE_Stock_MoW(ratio)
@@ -1840,60 +1840,60 @@ local function TE_Stock_MoW(ratio)
     TE_Component("MoW_Sto_MP153p",             15*ratio,  	10,   	nil,    eff_3,  para_3)
     TE_Component("MoW_StoC_MP153p",            15*ratio,  	10,   	nil,    eff_3,  para_3)
 	--
-	g_PresetParamCache[WeaponComponents.StockNo]["ShootAPDecrease"] 					= 2
-	g_PresetParamCache[WeaponComponents.StockNo]["accuracy_penalty"] 					= -75
-	g_PresetParamCache[WeaponComponents.StockFolded]["ShootAPDecrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.StockFolded]["accuracy_penalty"] 				= -75
-	g_PresetParamCache[WeaponComponents.StockHeavy]["ShootAPIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.StockLight]["ShootAPDecrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.StockLight]["accuracy_penalty"] 				= -50
-	g_PresetParamCache[WeaponComponents.StockHeavy_AR_BurstOnly]["ShootAPIncrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.StockLight_AR_BurstOnly]["ShootAPDecrease"] 	= 1
-	g_PresetParamCache[WeaponComponents.StockLight_AR_BurstOnly]["accuracy_penalty"] 	= -50
-	g_PresetParamCache[WeaponComponents.MoW_Sto_PRS3]["ShootAPIncrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_SG550_1]["ShootAPIncrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_M110]["ShootAPIncrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_A3G]["ShootAPIncrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_G28]["ShootAPIncrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_M16A2]["ShootAPIncrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_CAR15]["ShootAPDecrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_CAR15]["accuracy_penalty"] 				= -50
-	g_PresetParamCache[WeaponComponents.MoW_Sto_Minimal]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_Minimal]["accuracy_penalty"] 			= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_HB]["ShootAPDecrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_HB]["accuracy_penalty"] 				= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_MP7]["ShootAPDecrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_MP7]["accuracy_penalty"] 				= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_Bizon]["ShootAPDecrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_Bizon]["accuracy_penalty"] 			= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_Vector]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_Vector]["accuracy_penalty"] 			= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_HK416C]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_HK416C]["accuracy_penalty"] 			= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_M45]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_M45]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_UMP]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_UMP]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_APC9k]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_APC9k]["accuracy_penalty"] 			= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_MP9]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_MP9]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_vz26]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_vz26]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_Sto_AK102]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_AK102]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_Sto_G3A4]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_G3A4]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_G3A4]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_G3A4]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_Sto_AMD65]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_AMD65]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_Sto_AKS74]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_AKS74]["accuracy_penalty"] 			    = -50
-	g_PresetParamCache[WeaponComponents.MoW_Sto_MP153p]["ShootAPDecrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.MoW_Sto_MP153p]["accuracy_penalty"] 			= -50
-	g_PresetParamCache[WeaponComponents.MoW_StoC_MP153p]["ShootAPDecrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.MoW_StoC_MP153p]["accuracy_penalty"] 			= -50
+	TE_SetParamCache(WeaponComponents.StockNo, "ShootAPDecrease", 2)
+	TE_SetParamCache(WeaponComponents.StockNo, "accuracy_penalty", -75)
+	TE_SetParamCache(WeaponComponents.StockFolded, "ShootAPDecrease", 2)
+	TE_SetParamCache(WeaponComponents.StockFolded, "accuracy_penalty", -75)
+	TE_SetParamCache(WeaponComponents.StockHeavy, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.StockHeavy_AR_BurstOnly, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight_AR_BurstOnly, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.StockLight_AR_BurstOnly, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_PRS3, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_SG550_1, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_M110, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_A3G, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_G28, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_M16A2, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_CAR15, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_CAR15, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_Minimal, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_Minimal, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_HB, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_HB, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_MP7, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_MP7, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_Bizon, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_Bizon, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_Vector, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_Vector, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_HK416C, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_HK416C, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_M45, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_M45, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_UMP, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_UMP, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_APC9k, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_APC9k, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_MP9, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_MP9, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_vz26, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_vz26, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_AK102, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_AK102, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_G3A4, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_G3A4, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_G3A4, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_G3A4, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_AMD65, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_AMD65, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_AKS74, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_AKS74, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_MP153p, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sto_MP153p, "accuracy_penalty", -50)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_MP153p, "ShootAPDecrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_StoC_MP153p, "accuracy_penalty", -50)
 end
 
 local function TE_Scope_MoW(ratio)
@@ -2060,54 +2060,54 @@ local function TE_Scope_MoW(ratio)
     TE_Component("MoW_Sco_EXPSg33",            20*ratio, 	10,   	chip,   eff_9,  para_7)
     TE_Component("MoW_Sco_T2x3",               20*ratio, 	10,   	chip,   eff_9,  para_7)
 	--
-	g_PresetParamCache[WeaponComponents.LROptics]["MaxAimActionsIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.LROptics]["ShootAPIncrease"] 					    = 1
-	g_PresetParamCache[WeaponComponents.LROptics_DragunovDefault]["MaxAimActionsIncrease"]	= 1
-	g_PresetParamCache[WeaponComponents.LROptics_DragunovDefault]["ShootAPIncrease"]	    = 1
-	g_PresetParamCache[WeaponComponents.PSG_DefaultScope]["MaxAimActionsIncrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.PSG_DefaultScope]["ShootAPIncrease"] 			    = 1
-	g_PresetParamCache[WeaponComponents.LROpticsAdvanced]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.LROpticsAdvanced]["ShootAPIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.ReflexSight]["OverwatchAngleIncrease"] 				= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_Vudu]["MaxAimActionsIncrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_Vudu]["ShootAPIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.MoW_Mou_Fero]["MaxAimActionsIncrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_Mou_Fero]["ShootAPIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_PSO1]["MaxAimActionsIncrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_PSO1]["ShootAPIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_RazorHDII]["MaxAimActionsIncrease"] 		= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_RazorHDII]["ShootAPIncrease"] 				= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_ShortDot_14]["MaxAimActionsIncrease"] 		= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_ShortDot_14]["ShootAPIncrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_AP5000]["MaxAimActionsIncrease"] 			= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_AP5000]["ShootAPIncrease"] 					= 1
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NF420]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NF420]["ShootAPIncrease"] 				    = 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NF420RAPTAR]["MaxAimActionsIncrease"] 		= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NF420RAPTAR]["ShootAPIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NF416]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NF416]["ShootAPIncrease"] 				    = 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NXS2510]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_NXS2510]["ShootAPIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_Mk4_310]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_Mk4_310]["ShootAPIncrease"] 				= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_Mk3_39]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_Mk3_39]["ShootAPIncrease"] 				    = 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_HD_525]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_HD_525]["ShootAPIncrease"] 				    = 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_HD_525_RAPTAR]["MaxAimActionsIncrease"] 	= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_HD_525_RAPTAR]["ShootAPIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_M3_824]["MaxAimActionsIncrease"] 			= 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_M3_824]["ShootAPIncrease"] 				    = 2
-	g_PresetParamCache[WeaponComponents.MoW_Sco_Kobra]["OverwatchAngleIncrease"] 			= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_R8]["OverwatchAngleIncrease"] 				= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_1P87]["OverwatchAngleIncrease"] 			= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_EXPS]["OverwatchAngleIncrease"] 			= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_552]["OverwatchAngleIncrease"] 				= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_T2High]["OverwatchAngleIncrease"] 			= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_MRO]["OverwatchAngleIncrease"] 				= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_RMR]["OverwatchAngleIncrease"] 				= 150
-	g_PresetParamCache[WeaponComponents.MoW_Sco_DPP]["OverwatchAngleIncrease"] 				= 150
+	TE_SetParamCache(WeaponComponents.LROptics, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROptics, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROptics_DragunovDefault, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROptics_DragunovDefault, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.PSG_DefaultScope, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.PSG_DefaultScope, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.LROpticsAdvanced, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.LROpticsAdvanced, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.ReflexSight, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_Vudu, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_Vudu, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Mou_Fero, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Mou_Fero, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_PSO1, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_PSO1, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_RazorHDII, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_RazorHDII, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_ShortDot_14, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_ShortDot_14, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_AP5000, "MaxAimActionsIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_AP5000, "ShootAPIncrease", 1)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NF420, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NF420, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NF420RAPTAR, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NF420RAPTAR, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NF416, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NF416, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NXS2510, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_NXS2510, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_Mk4_310, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_Mk4_310, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_Mk3_39, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_Mk3_39, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_HD_525, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_HD_525, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_HD_525_RAPTAR, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_HD_525_RAPTAR, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_M3_824, "MaxAimActionsIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_M3_824, "ShootAPIncrease", 2)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_Kobra, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_R8, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_1P87, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_EXPS, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_552, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_T2High, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_MRO, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_RMR, "OverwatchAngleIncrease", 150)
+	TE_SetParamCache(WeaponComponents.MoW_Sco_DPP, "OverwatchAngleIncrease", 150)
 end
 
 local function TE_Side_MoW(ratio)
@@ -2172,15 +2172,15 @@ local function TE_Side_MoW(ratio)
     TE_Component("MoW_Sid_X300",           5*ratio,  	-10, 	nil,	eff_1,  nil)
     TE_Component("MoW_Sid_X400",           10*ratio,  	10, 	chip, 	eff_2,  para_2)
 	--
-	g_PresetParamCache[WeaponComponents.FlashlightDot]["stealth_kill_bonus"] 			= stealth_kill
-	g_PresetParamCache[WeaponComponents.FlashlightDot_aa12]["stealth_kill_bonus"] 		= stealth_kill
-	g_PresetParamCache[WeaponComponents.FlashlightDot_PSG_M1]["stealth_kill_bonus"] 	= stealth_kill
-	g_PresetParamCache[WeaponComponents.FlashlightDot_Anaconda]["stealth_kill_bonus"] 	= stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Sid_PEQ2]["stealth_kill_bonus"] 	        = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Sid_PEQ2_Side3]["stealth_kill_bonus"] 	    = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Sid_Perst4]["stealth_kill_bonus"] 	        = stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Sid_Perst4_Side3]["stealth_kill_bonus"] 	= stealth_kill
-	g_PresetParamCache[WeaponComponents.MoW_Sid_X400]["stealth_kill_bonus"] 	        = stealth_kill
+	TE_SetParamCache(WeaponComponents.FlashlightDot, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.FlashlightDot_aa12, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.FlashlightDot_PSG_M1, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.FlashlightDot_Anaconda, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Sid_PEQ2, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Sid_PEQ2_Side3, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Sid_Perst4, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Sid_Perst4_Side3, "stealth_kill_bonus", stealth_kill)
+	TE_SetParamCache(WeaponComponents.MoW_Sid_X400, "stealth_kill_bonus", stealth_kill)
 end
 
 local function Cost_Apply()
@@ -2189,6 +2189,7 @@ end
 
 -- Load Changes
 function OnMsg.ModsReloaded()
+	if not TE_DataReady() then return end
 	if CurrentModOptions["Gunfight_Rework"] then
 		local ratio = Cost_Apply()
 		if table.find(ModsLoaded, "id", "XQNrmnC") then
@@ -2245,6 +2246,7 @@ function OnMsg.DataLoaded()
 	end
 end
 function OnMsg.OptionsApply()
+	if not TE_DataReady() then return end
 	if CurrentModOptions["Gunfight_Rework"] then
 		local ratio = Cost_Apply()
 		if table.find(ModsLoaded, "id", "XQNrmnC") then

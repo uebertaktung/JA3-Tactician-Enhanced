@@ -1938,7 +1938,7 @@ OnMsg.DataLoaded = TE_SetEnemySquadSizeMultiplier
 
 --TE DropLimit Factor
 function TE_DropLoot(unit)
-	local factor
+	local factor = 1
 
 	if opt_TE_droprate then
 		factor = 1
@@ -2420,38 +2420,95 @@ DefineClass.DiamondBriefcase = {
 
 --Tactician Enhanced Mechanism Loaded
 function OnMsg.ModsReloaded()
+	if not TE_DataReady() then return end
 	TE_AI_Logic()
 	TE_Explosion_Resistance()
 	TE_Projectile_Velocity()
 	TE_Unaware_Sight()
 	TE_Auto_Resolve()
 	TE_CameraZoom()
-    SoundPresets["ui_overwatch-activate"].volume = 0
-    SoundPresets["ui_overwatch-deactivate"].volume = 0
-    LoadSoundBank(SoundPresets["ui_overwatch-activate"])
-    LoadSoundBank(SoundPresets["ui_overwatch-deactivate"])
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then SoundPresets["ui_overwatch-activate"].volume = 0 end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then SoundPresets["ui_overwatch-deactivate"].volume = 0 end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then LoadSoundBank(SoundPresets["ui_overwatch-activate"]) end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then LoadSoundBank(SoundPresets["ui_overwatch-deactivate"]) end
 end
 function OnMsg.DataLoaded()
+	if not TE_DataReady() then return end
 	TE_AI_Logic()
 	TE_Explosion_Resistance()
 	TE_Projectile_Velocity()
 	TE_Unaware_Sight()
 	TE_Auto_Resolve()
 	TE_CameraZoom()
-    SoundPresets["ui_overwatch-activate"].volume = 0
-    SoundPresets["ui_overwatch-deactivate"].volume = 0
-    LoadSoundBank(SoundPresets["ui_overwatch-activate"])
-    LoadSoundBank(SoundPresets["ui_overwatch-deactivate"])
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then SoundPresets["ui_overwatch-activate"].volume = 0 end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then SoundPresets["ui_overwatch-deactivate"].volume = 0 end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then LoadSoundBank(SoundPresets["ui_overwatch-activate"]) end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then LoadSoundBank(SoundPresets["ui_overwatch-deactivate"]) end
 end
 function OnMsg.OptionsApply()
+	if not TE_DataReady() then return end
 	TE_AI_Logic()
 	TE_Explosion_Resistance()
 	TE_Projectile_Velocity()
 	TE_Unaware_Sight()
 	TE_Auto_Resolve()
 	TE_CameraZoom()
-    SoundPresets["ui_overwatch-activate"].volume = 0
-    SoundPresets["ui_overwatch-deactivate"].volume = 0
-    LoadSoundBank(SoundPresets["ui_overwatch-activate"])
-    LoadSoundBank(SoundPresets["ui_overwatch-deactivate"])
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then SoundPresets["ui_overwatch-activate"].volume = 0 end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then SoundPresets["ui_overwatch-deactivate"].volume = 0 end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then LoadSoundBank(SoundPresets["ui_overwatch-activate"]) end
+    if SoundPresets and SoundPresets["ui_overwatch-activate"] and SoundPresets["ui_overwatch-deactivate"] then LoadSoundBank(SoundPresets["ui_overwatch-deactivate"]) end
 end
+
+-- ========== TE Patch Helpers (log-error fixes) ==========
+function TE_ToPos(o)
+	if o == nil then return nil end
+	if IsPoint(o) then return o end
+	if IsValid(o) then return o:GetPos() end
+	return nil
+end
+function TE_ScatterPos(closest, fallback_obj, radius)
+	local base = TE_ToPos(closest) or TE_ToPos(fallback_obj) or point(0, 0, 0)
+	local ang = InteractionRand(360*60)
+	local off = Rotate(point(InteractionRand(radius), 0, 0), ang)
+	if not IsPoint(off) then off = point(0, 0, 0) end
+	return base + off
+end
+function TE_SafeActionResults(action, unit, args, weapons)
+	if not action or not weapons or not IsPoint(args.target) then return nil end
+	local ok, res = pcall(action.GetActionResults, action, unit, args)
+	if ok then return res end
+	return nil
+end
+-- DoChangeStance sleeps, which is illegal inside a reaction (called through pcall): run it in its own thread
+function TE_SafeCrouch(unit)
+	if not IsValid(unit) then return end
+	CreateGameTimeThread(function()
+		if IsValid(unit) and not unit:IsDead() and unit.stance == "Standing" then
+			unit:DoChangeStance("Crouch")
+		end
+	end)
+end
+-- GetComponentEffectValue(weapon, id) with no param key calls ResolveValue(nil) and errors for marker effects (CombatMod_*)
+function TE_GetCompEffect(weapon, effect_id, key)
+	if key ~= nil then return GetComponentEffectValue(weapon, effect_id, key) end
+	if type(weapon) ~= "table" or type(weapon.components) ~= "table" then return nil end
+	for _, comp_id in pairs(weapon.components) do
+		local def = WeaponComponents[comp_id]
+		if def and def.ModificationEffects and table.find(def.ModificationEffects, effect_id) then
+			return true, def
+		end
+	end
+	return nil
+end
+function TE_SetParamCache(comp, name, value)
+	if not comp then return end
+	g_PresetParamCache = g_PresetParamCache or {}
+	g_PresetParamCache[comp] = g_PresetParamCache[comp] or {}
+	g_PresetParamCache[comp][name] = value
+end
+-- true once all preset/def tables the TE load-time code touches exist
+function TE_DataReady()
+	return UnitDataDefs ~= nil and InventoryItemDefs ~= nil and WeaponComponents ~= nil
+		and Presets ~= nil and Presets.ChanceToHitModifier ~= nil and Presets.ChanceToHitModifier.Default ~= nil
+end
+-- ========== TE Patch Helpers End ==========

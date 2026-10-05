@@ -83,7 +83,7 @@ DefineClass.TacticalBOW = {
 			Event = "OnDamageDone",
 			Handler = function (self, target, attack_target, dmg, hit_descr)
 				--B.O.W. MeleeStrike WILL DESTROY ALL Armour [!OPTIONAL!]
-				if target and target:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target and (attack_target ~= nil and target:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					local armourItems = attack_target:GetEquipedArmour()
 					local weapon = target:GetActiveWeapons("Firearm")
 					for _, item in ipairs(armourItems) do

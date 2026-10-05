@@ -2,6 +2,7 @@
 local DarknessLightmodel = {}
 function TE_Darkness_Level()
     if rawequal(CurrentLightmodel, Undefined()) or rawequal(CurrentLightmodel, false) then return end
+    if type(CurrentLightmodel) ~= "table" then return end
     DarknessLightmodel = CurrentLightmodel[1]
     local TE_Lightmodel = DarknessLightmodel
 	local choice = CurrentModOptions["Darkness_Level"]
@@ -90,11 +91,15 @@ end
 function OnMsg.PostNewMapLoaded()
 	if CurrentModOptions["Darkness_Level"] == '100%' then return end
 	
+    if type(CurrentLightmodel) ~= "table" then return end
+	
     DarknessLightmodel = CurrentLightmodel[1]
 	TE_Darkness_Level()
 end
 function OnMsg.ModsReloaded()
 	if CurrentModOptions["Darkness_Level"] == '100%' then return end
+	
+    if type(CurrentLightmodel) ~= "table" then return end
 	
     DarknessLightmodel = CurrentLightmodel[1]
 	TE_Darkness_Level()
@@ -102,11 +107,15 @@ end
 function OnMsg.DataLoaded()
 	if CurrentModOptions["Darkness_Level"] == '100%' then return end
 	
+    if type(CurrentLightmodel) ~= "table" then return end
+	
     DarknessLightmodel = CurrentLightmodel[1]
 	TE_Darkness_Level()
 end
 function OnMsg.OptionsApply()
 	if CurrentModOptions["Darkness_Level"] == '100%' then return end
+	
+    if type(CurrentLightmodel) ~= "table" then return end
 	
     DarknessLightmodel = CurrentLightmodel[1]
 	TE_Darkness_Level()

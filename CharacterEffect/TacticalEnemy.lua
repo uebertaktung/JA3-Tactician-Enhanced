@@ -115,7 +115,7 @@ DefineClass.TacticalEnemy = {
 				
 				--TE Global Real HeavyWounds! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
 				local effect = target:GetStatusEffect("Wounded")
-				if effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
+				if effect and effect.stacks >= 5 and not target:HasStatusEffect("RealHeavyWounds") then
 					target:AddStatusEffect("RealHeavyWounds")
 				else
 					target:RemoveStatusEffect("RealHeavyWounds")
@@ -167,7 +167,7 @@ DefineClass.TacticalEnemy = {
 			Event = "OnCalcCritChance",
 			Handler = function (self, target, attacker, attack_target, action, weapon, data)
 				--JA3 NPC OpportunityAttack CanCrits! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					-- treat attacks equally (allow crits on opportunity attacks)
 					data.opportunity_attack = false
 				end
@@ -177,9 +177,9 @@ DefineClass.TacticalEnemy = {
 			Event = "OnCalcDamageAndEffects",
 			Handler = function (self, target, attacker, attack_target, action, weapon, attack_args, hit, data)
 				--Enemy StealthKill || MartialArts || HoldPosition [!OPTIONAL!]
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					local visual_contact = attacker.enemy_visual_contact
-					local isRetaliation = attack_args.opportunity_attack_type and attack_args.opportunity_attack_type == "Retaliation"
+					local isRetaliation = (attack_args and attack_args.opportunity_attack_type) and (attack_args and attack_args.opportunity_attack_type) == "Retaliation"
 					local fatalityMod = Max(attack_target:GetTotalHitPoints(), 125) + Max(const.Combat.MaxGrit, 45)
 					if attacker:HasStatusEffect("TacticalBOW") and isRetaliation then
 						hit.stealth_kill = true -- B.O.W. Retaliation <GameTerm('Interrupt')> attacks might trigger instant Fatality [!OPTIONAL!]
@@ -191,10 +191,10 @@ DefineClass.TacticalEnemy = {
 							data.base_damage = fatalityMod
 						end
 					end
-					if action.ActionType == "Melee Attack" and not attack_args.opportunity_attack_type and attack_target:HasStatusEffect("MartialArts") and attack_target.Dexterity >= 85 then
+					if (action and action.ActionType) == "Melee Attack" and not (attack_args and attack_args.opportunity_attack_type) and attack_target:HasStatusEffect("MartialArts") and attack_target.Dexterity >= 85 then
 						hit.grazing = true -- [MartialArts] will trigger Grazing hit (Parry)!
 					end
-					if action.ActionType == "Ranged Attack" and (g_Overwatch[attack_target] or g_Pindown[attack_target]) and attack_target:HasStatusEffect("HoldPosition") and attack_target.Health >= 90 then
+					if (action and action.ActionType) == "Ranged Attack" and (g_Overwatch[attack_target] or g_Pindown[attack_target]) and attack_target:HasStatusEffect("HoldPosition") and attack_target.Health >= 90 then
 						hit.critical = nil -- [HoldPosition] will invalidate Critical hit!
 					end
 				end
@@ -204,7 +204,7 @@ DefineClass.TacticalEnemy = {
 			Event = "OnDamageDone",
 			Handler = function (self, target, attack_target, dmg, hit_descr)
 				--Enemy AutoWeapons Tracers & Distracting Shot! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
-				if target and target:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target and (attack_target ~= nil and target:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					local weapon = target:GetActiveWeapons("Firearm")
 					if hit_descr.weapon and IsKindOfClasses(weapon, "AssaultRifle", "MachineGun", "SubmachineGun") and not attack_target:HasStatusEffect("IlluminationSpotted") then
 						attack_target:AddStatusEffect("IlluminationSpotted") -- Enemy Tracers inflict "Illuminated"!
@@ -318,7 +318,7 @@ DefineClass.TacticalEnemy = {
 			Event = "OnFirearmAttackStart",
 			Handler = function (self, target, attacker, attack_target, action, attack_args)
 				--Enemy OpportunityAttack || DistractingShot || Suppression Matters! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					local weapon = attacker:GetActiveWeapons()
 					if attack_args and attack_args.opportunity_attack_type then
 						if (action.id == "SingleShot" or action.id == "BurstFire") and table.find(weapon.AvailableAttacks, "AutoFire") then
@@ -351,7 +351,7 @@ DefineClass.TacticalEnemy = {
 			Event = "OnUnitAttackResolved",
 			Handler = function (self, target, attacker, attack_target, action, attack_args, results, can_retaliate, combat_starting)
 				--TE Global Fire Suppression Overhaul! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					if not attack_target:IsAware() or attack_target:IsDead() or attack_target:IsDowned() or attack_target:HasStatusEffect("Protected") or attack_target:HasStatusEffect("Panicked") or attack_target:HasStatusEffect("Unconscious") then return end
 					
 					local weapon = attacker:GetActiveWeapons()
@@ -360,12 +360,12 @@ DefineClass.TacticalEnemy = {
 					local allEnemies = GetAllEnemyUnits(attacker)
 					if not (results and results.obstructed) then
 						if IsKindOf(results.weapon, "Firearm") then
-							if attack_args.opportunity_attack_type then
+							if (attack_args and attack_args.opportunity_attack_type) then
 								attack_target:AddStatusEffect("Suppressed")
 							end
 							if (weaponRange >= enemyDist) and HasVisibilityTo(attack_target, attacker) then
-								if attack_target.stance == "Standing" and not attack_args.opportunity_attack_type then
-									attack_target:DoChangeStance("Crouch")
+								if attack_target.stance == "Standing" and not (attack_args and attack_args.opportunity_attack_type) then
+									TE_SafeCrouch(attack_target)
 								end
 								attack_target:AddStatusEffect("SuppressionShocked")
 							end
@@ -374,14 +374,14 @@ DefineClass.TacticalEnemy = {
 							if enemy:HasStatusEffect("Protected") or enemy:HasStatusEffect("Panicked") or enemy:HasStatusEffect("Unconscious") then return end
 							
 							if enemy ~= attack_target and enemy:IsAware() and not enemy:IsDead() and not enemy:IsDowned() then
-								if enemy:IsPointBlankRange(attack_target) and enemy:IsOnAllySide(attack_target) and IsKindOf(enemy, "Unit") then
+								if enemy:IsPointBlankRange(attack_target) and (attack_target ~= nil and enemy:IsOnAllySide(attack_target)) and IsKindOf(enemy, "Unit") then
 									if IsKindOf(results.weapon, "Firearm") then
-										if attack_args.opportunity_attack_type then
+										if (attack_args and attack_args.opportunity_attack_type) then
 											enemy:AddStatusEffect("Suppressed")
 										end
 										if (weaponRange >= enemyDist) and HasVisibilityTo(attack_target, attacker) then
-											if enemy.stance == "Standing" and not attack_args.opportunity_attack_type then
-												enemy:DoChangeStance("Crouch")
+											if enemy.stance == "Standing" and not (attack_args and attack_args.opportunity_attack_type) then
+												TE_SafeCrouch(enemy)
 											end
 											enemy:AddStatusEffect("SuppressionShocked")
 										end
