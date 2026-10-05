@@ -444,19 +444,9 @@ DefineClass.TEActivation = {
 			end,
 		}),
 		PlaceObj('UnitReaction', {
-			Event = "OnCalcHealAmount",
-			Handler = function (self, target, patient, medic, medkit, data)
-				--TE Medicine Consumables Matters! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
-				local medicine = target:GetBandageMedicine()
-				if false and medicine and target == medic then -- PATCH: drained medkits on every UI refresh
-					if medic.Medical >= 85 and medic.Wisdom >= 90 and medic:HasStatusEffect("Caretaker") then
-						medicine.Condition = Max(0, (medicine.Condition - 15))
-					elseif medic.Medical >= 60 and medic.Wisdom >= 70 and medic:HasStatusEffect("Savior") then
-						medicine.Condition = Max(0, (medicine.Condition - 25))
-					else
-						medicine.Condition = Max(0, (medicine.Condition - 50))
-					end
-				end
+			Event = "OnUnitBandaged",
+			Handler = function (self, target, healer, patient, hp_restored)
+				pcall(TE_MedkitPerkDiscount, target, healer, patient, hp_restored)
 			end,
 		}),
 		PlaceObj('UnitReaction', {

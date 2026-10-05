@@ -2515,4 +2515,28 @@ end
 if EnvEffectReaction == nil then
 	function EnvEffectReaction() end
 end
+-- ===== Medkit: bandaging costs ONLY the mod's flat rate (50 / Savior 25 / Caretaker 15) instead of the game's heal-based
+--      charge. Revive handling is untouched (game's DownedRally charges ReviveConditionLoss). =====
+local function TE_MedkitCharge(medic)
+	if not IsValid(medic) then return 50 end
+	if medic.Medical >= 85 and medic.Wisdom >= 90 and medic:HasStatusEffect("Caretaker") then return 15 end
+	if medic.Medical >= 60 and medic.Wisdom >= 70 and medic:HasStatusEffect("Savior") then return 25 end
+	return 50
+end
+-- Healer's OnUnitBandaged reaction, fired once at the end of Unit:GetBandaged: give back the game's heal-based charge
+-- (same formula as GetBandaged) and apply the flat rate instead.
+function TE_MedkitPerkDiscount(owner, healer, patient, restored)
+	if owner ~= healer or not IsValid(healer) or not restored or restored <= 0 then return end
+	local kit = healer:GetBandageMedicine() or GetUnitEquippedMedicine(healer)
+	if not kit or type(kit.Condition) ~= "number" then return end
+	local ok, _, rate = pcall(healer.CalcHealAmount, healer, kit, patient)
+	local vanilla = 0
+	if ok then
+		local maxc = CombatActions.Bandage:ResolveValue("MaxConditionHPRestore")
+		vanilla = Max(1, MulDivRound(Max(1, MulDivRound(restored, 100, maxc)), rate or 100, 100))
+	end
+	kit.Condition = Clamp(kit.Condition + vanilla - TE_MedkitCharge(healer), 0, 100)
+	ObjModified(kit)
+end
+-- ===== end medkit =====
 -- ========== TE Patch Helpers End ==========
