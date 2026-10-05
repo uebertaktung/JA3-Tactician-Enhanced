@@ -1,0 +1,66 @@
+UndefineClass('InfectedCrocodile')
+DefineClass.InfectedCrocodile = {
+	__parents = { "UnitData" },
+	__generated_by_class = "ModItemUnitDataCompositeDef",
+
+
+	comment = "B.O.W. Infected Crocodile",
+	object_class = "UnitData",
+	Health = 95,
+	Agility = 95,
+	Dexterity = 95,
+	Strength = 95,
+	Wisdom = 5,
+	Leadership = 5,
+	Marksmanship = 5,
+	Mechanical = 5,
+	Explosives = 5,
+	Medical = 5,
+	Name = T(698626626096, --[[ModItemUnitDataCompositeDef InfectedCrocodile Name]] "Hunter"),
+	Randomization = true,
+	Affiliation = "Secret",
+	StartingLevel = 10,
+	neutral_retaliate = true,
+	archetype = "Beast_Crocodile",
+	role = "Beast",
+	CanManEmplacements = false,
+	RepositionArchetype = "Scout_LastLocation",
+	OpeningAttackType = "PinDown",
+	MaxHitPoints = 125,
+	StartingPerks = {
+		"ZombiePerk",
+		"NaturalCamouflage",
+		"LightningReactionNPC",
+		"FleetingShadow",
+		"MakeThemBleed",
+		"MeleeTraining",
+		"NightOps",
+		"OptimalPerformance",
+		"HitTheDeck",
+		"BeefedUp",
+		"Berserker",
+		"ColdHeart",
+		"BloodlustPerk",
+		"HardBlow",
+		"BloodScent",
+		"Hobbler",
+	},
+	AppearancesList = {
+		PlaceObj('AppearanceWeight', {
+			'Preset', "Infected_Crocodile_01",
+		}),
+		PlaceObj('AppearanceWeight', {
+			'Preset', "Infected_Crocodile_02",
+		}),
+		PlaceObj('AppearanceWeight', {
+			'Preset', "Infected_Crocodile_03",
+		}),
+	},
+	Equipment = {
+		"BOW_Hunter_Gear",
+	},
+	species = "Crocodile",
+	body_type = "Large animal",
+	infected = true,
+}
+

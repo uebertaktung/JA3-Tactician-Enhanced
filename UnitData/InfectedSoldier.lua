@@ -1,0 +1,56 @@
+UndefineClass('InfectedSoldier')
+DefineClass.InfectedSoldier = {
+	__parents = { "UnitData" },
+	__generated_by_class = "ModItemUnitDataCompositeDef",
+
+
+	comment = "B.O.W. Infected Soldier",
+	object_class = "UnitData",
+	Health = 100,
+	Agility = 100,
+	Dexterity = 100,
+	Strength = 100,
+	Wisdom = 5,
+	Leadership = 5,
+	Marksmanship = 5,
+	Mechanical = 5,
+	Explosives = 5,
+	Medical = 5,
+	Name = T(455768038642, --[[ModItemUnitDataCompositeDef InfectedSoldier Name]] "Infected"),
+	Randomization = true,
+	Affiliation = "Secret",
+	StartingLevel = 10,
+	neutral_retaliate = true,
+	archetype = "Brute",
+	role = "Stormer",
+	CanManEmplacements = false,
+	RepositionArchetype = "Scout_LastLocation",
+	OpeningAttackType = "PinDown",
+	MaxHitPoints = 60,
+	StartingPerks = {
+		"ZombiePerk",
+		"NaturalCamouflage",
+		"MeleeTraining",
+		"NightOps",
+		"OptimalPerformance",
+		"BeefedUp",
+		"Berserker",
+		"TrueGrit",
+		"Hardened",
+		"DeathFromAbove",
+		"BloodlustPerk",
+		"HardBlow",
+		"BloodScent",
+	},
+	AppearancesList = {
+		PlaceObj('AppearanceWeight', {
+			'Preset', "Infected_Legion_Soldier",
+		}),
+	},
+	Equipment = {
+		"BOW_Zombie_Gear",
+	},
+	gender = "Male",
+	infected = true,
+}
+
