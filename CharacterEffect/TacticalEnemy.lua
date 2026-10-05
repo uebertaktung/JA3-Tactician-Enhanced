@@ -240,9 +240,9 @@ DefineClass.TacticalEnemy = {
 								local weapon_mortar = ally:GetActiveWeapons("Mortar")
 								local enemyPos = ResolveGrenadeTargetPos(attacker, ally:GetPos(), weapons)
 								local args = {target = enemyPos}
-								local results = action:GetActionResults(ally, args)
-								local explosionPos = results.explosion_pos
-								local dropDist = DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX)
+								local results = TE_SafeActionResults(action, ally, args, weapons)
+								local explosionPos = (results and results.explosion_pos) or enemyPos
+								local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 								local enemyDist = DivCeil(ally:GetDist(attacker), const.SlabSizeX)
 								if (g_Overwatch[attacker] or g_Pindown[attacker]) and hit_descr.weapon then
 									if (enemyDist > 4 and enemyDist <= 45) and ((weapons and (dropDist <= 1)) and not weapon_rocket) and not ally:HasStatusEffect("LauncherRetaliationCounter") then
@@ -300,9 +300,9 @@ DefineClass.TacticalEnemy = {
 								local weapons = action:GetAttackWeapons(target)
 								local enemyPos = ResolveGrenadeTargetPos(attacker, target:GetPos(), weapons)
 								local args = {target = enemyPos}
-								local results = action:GetActionResults(target, args)
-								local explosionPos = results.explosion_pos
-								local dropDist = DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX)
+								local results = TE_SafeActionResults(action, target, args, weapons)
+								local explosionPos = (results and results.explosion_pos) or enemyPos
+								local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 								if (enemyDist <= 20) and (weapons and (dropDist <= 1)) and not IsKindOfClasses(weapons, "FlareStick", "GlowStick", "SmokeGrenade", "TearGasGrenade", "ToxicGasGrenade") then
 									StartCombatAction(action.id, target, 0, args) -- B.O.W. Revenge Retaliation (Bombs)!
 									attacker:AddStatusEffect("ThrowingRetaliationCounter")

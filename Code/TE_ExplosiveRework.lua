@@ -17,8 +17,10 @@ local function TE_Explosive(id, dmg, ap, area, minR)
     local defs = InventoryItemDefs[id]
     local load = _G[id]
 
-    defs.BaseDamage             = dmg
-    load.BaseDamage             = dmg
+    if dmg ~= nil then -- PATCH: nil BaseDamage broke Unit:GetBaseDamage (MulDivRound) for utility grenades
+    	defs.BaseDamage = dmg
+    	load.BaseDamage = dmg
+    end
 
     if ap then
         defs.AttackAP           = ap * 1000
@@ -46,8 +48,10 @@ local function TE_Trap(id, dmg, area)
     local defs = InventoryItemDefs[id]
     local load = _G[id]
 
-    defs.BaseDamage             = dmg
-    load.BaseDamage             = dmg
+    if dmg ~= nil then -- PATCH: nil BaseDamage broke Unit:GetBaseDamage (MulDivRound) for utility grenades
+    	defs.BaseDamage = dmg
+    	load.BaseDamage = dmg
+    end
 
     if area then
         defs.AreaOfEffect       = area

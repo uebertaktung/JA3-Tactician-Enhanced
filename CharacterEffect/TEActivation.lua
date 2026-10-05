@@ -124,9 +124,9 @@ DefineClass.TEActivation = {
 											local weapons = action:GetAttackWeapons(unit)
 											local enemyPos = ResolveGrenadeTargetPos(enemy, unit:GetPos(), weapons)
 											local args = {target = enemyPos}
-											local results = action:GetActionResults(unit, args)
-											local explosionPos = results.explosion_pos
-											local dropDist = DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX)
+											local results = TE_SafeActionResults(action, unit, args, weapons)
+											local explosionPos = (results and results.explosion_pos) or enemyPos
+											local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 											if enemy.enemy_visual_contact and ((enemyDist < 16) or (unit:HasStatusEffect("TacticalBOW") and (enemyDist <= 20))) and (weapons and (dropDist <= 1)) and not IsKindOfClasses(weapons, "FlareStick", "GlowStick", "SmokeGrenade") and not unit:IsPointBlankRange(enemy) and not enemy:HasStatusEffect("ThrowingRetaliationCounter") then
 												StartCombatAction(action.id, unit, 0, args) -- Enemy Grenades/Explosives Attacks!
 												unit:AddStatusEffect("ThrowingRetaliationCounter")

@@ -2511,4 +2511,8 @@ function TE_DataReady()
 	return UnitDataDefs ~= nil and InventoryItemDefs ~= nil and WeaponComponents ~= nil
 		and Presets ~= nil and Presets.ChanceToHitModifier ~= nil and Presets.ChanceToHitModifier.Default ~= nil
 end
+-- the game's gas code (Grenade.lua) and TE call this global; if it is missing in this build, fall back to a no-op
+if EnvEffectReaction == nil then
+	function EnvEffectReaction() end
+end
 -- ========== TE Patch Helpers End ==========

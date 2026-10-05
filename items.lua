@@ -2167,9 +2167,9 @@ return {
 													local weapons = action:GetAttackWeapons(unit)
 													local enemyPos = ResolveGrenadeTargetPos(enemy, unit:GetPos(), weapons)
 													local args = {target = enemyPos}
-													local results = action:GetActionResults(unit, args)
-													local explosionPos = results.explosion_pos
-													local dropDist = DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX)
+													local results = TE_SafeActionResults(action, unit, args, weapons)
+													local explosionPos = (results and results.explosion_pos) or enemyPos
+													local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 													if enemy.enemy_visual_contact and ((enemyDist < 16) or (unit:HasStatusEffect("TacticalBOW") and (enemyDist <= 20))) and (weapons and (dropDist <= 1)) and not IsKindOfClasses(weapons, "FlareStick", "GlowStick", "SmokeGrenade") and not unit:IsPointBlankRange(enemy) and not enemy:HasStatusEffect("ThrowingRetaliationCounter") then
 														StartCombatAction(action.id, unit, 0, args) -- Enemy Grenades/Explosives Attacks!
 														unit:AddStatusEffect("ThrowingRetaliationCounter")
@@ -3073,9 +3073,9 @@ return {
 										local weapon_mortar = ally:GetActiveWeapons("Mortar")
 										local enemyPos = ResolveGrenadeTargetPos(attacker, ally:GetPos(), weapons)
 										local args = {target = enemyPos}
-										local results = action:GetActionResults(ally, args)
-										local explosionPos = results.explosion_pos
-										local dropDist = DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX)
+										local results = TE_SafeActionResults(action, ally, args, weapons)
+										local explosionPos = (results and results.explosion_pos) or enemyPos
+										local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 										local enemyDist = DivCeil(ally:GetDist(attacker), const.SlabSizeX)
 										if (g_Overwatch[attacker] or g_Pindown[attacker]) and hit_descr.weapon then
 											if (enemyDist > 4 and enemyDist <= 45) and ((weapons and (dropDist <= 1)) and not weapon_rocket) and not ally:HasStatusEffect("LauncherRetaliationCounter") then
@@ -3133,9 +3133,9 @@ return {
 										local weapons = action:GetAttackWeapons(target)
 										local enemyPos = ResolveGrenadeTargetPos(attacker, target:GetPos(), weapons)
 										local args = {target = enemyPos}
-										local results = action:GetActionResults(target, args)
-										local explosionPos = results.explosion_pos
-										local dropDist = DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX)
+										local results = TE_SafeActionResults(action, target, args, weapons)
+										local explosionPos = (results and results.explosion_pos) or enemyPos
+										local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 										if (enemyDist <= 20) and (weapons and (dropDist <= 1)) and not IsKindOfClasses(weapons, "FlareStick", "GlowStick", "SmokeGrenade", "TearGasGrenade", "ToxicGasGrenade") then
 											StartCombatAction(action.id, target, 0, args) -- B.O.W. Revenge Retaliation (Bombs)!
 											attacker:AddStatusEffect("ThrowingRetaliationCounter")
