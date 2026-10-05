@@ -448,7 +448,7 @@ DefineClass.TEActivation = {
 			Handler = function (self, target, patient, medic, medkit, data)
 				--TE Medicine Consumables Matters! [!MUST HAVE!] -- !!!Do NOT Change this one!!! (TE Core Logic)
 				local medicine = target:GetBandageMedicine()
-				if medicine and target == medic then
+				if false and medicine and target == medic then -- PATCH: drained medkits on every UI refresh
 					if medic.Medical >= 85 and medic.Wisdom >= 90 and medic:HasStatusEffect("Caretaker") then
 						medicine.Condition = Max(0, (medicine.Condition - 15))
 					elseif medic.Medical >= 60 and medic.Wisdom >= 70 and medic:HasStatusEffect("Savior") then
