@@ -2168,7 +2168,7 @@ return {
 													local enemyPos = ResolveGrenadeTargetPos(enemy, unit:GetPos(), weapons)
 													local args = {target = enemyPos}
 													local results = TE_SafeActionResults(action, unit, args, weapons)
-													local explosionPos = (results and results.explosion_pos) or enemyPos
+													local explosionPos = (results and results.explosion_pos)
 													local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 													if enemy.enemy_visual_contact and ((enemyDist < 16) or (unit:HasStatusEffect("TacticalBOW") and (enemyDist <= 20))) and (weapons and (dropDist <= 1)) and not IsKindOfClasses(weapons, "FlareStick", "GlowStick", "SmokeGrenade") and not unit:IsPointBlankRange(enemy) and not enemy:HasStatusEffect("ThrowingRetaliationCounter") then
 														StartCombatAction(action.id, unit, 0, args) -- Enemy Grenades/Explosives Attacks!
@@ -2664,8 +2664,8 @@ return {
 												local args2 = {target = allyPos}
 												local results1 = TE_SafeActionResults(action, enemy, args1, weapons)
 												local results2 = TE_SafeActionResults(action, enemy, args2, weapons)
-												local explosionPos1 = (results1 and results1.explosion_pos) or enemyPos
-												local explosionPos2 = (results2 and results2.explosion_pos) or allyPos
+												local explosionPos1 = (results1 and results1.explosion_pos)
+												local explosionPos2 = (results2 and results2.explosion_pos)
 												local dropDist1 = (weapons and IsPoint(enemyPos) and IsPoint(explosionPos1)) and DivCeil(enemyPos:Dist2D(explosionPos1), const.SlabSizeX) or 99
 												local dropDist2 = (weapons and IsPoint(allyPos) and IsPoint(explosionPos2)) and DivCeil(allyPos:Dist2D(explosionPos2), const.SlabSizeX) or 99
 												local tileSpace = DivRound(enemy:GetDist(attack_target), const.SlabSizeX)
@@ -3075,7 +3075,7 @@ return {
 										local enemyPos = ResolveGrenadeTargetPos(attacker, ally:GetPos(), weapons)
 										local args = {target = enemyPos}
 										local results = TE_SafeActionResults(action, ally, args, weapons)
-										local explosionPos = (results and results.explosion_pos) or enemyPos
+										local explosionPos = (results and results.explosion_pos)
 										local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 										local enemyDist = DivCeil(ally:GetDist(attacker), const.SlabSizeX)
 										if (g_Overwatch[attacker] or g_Pindown[attacker]) and hit_descr.weapon then
@@ -3135,7 +3135,7 @@ return {
 										local enemyPos = ResolveGrenadeTargetPos(attacker, target:GetPos(), weapons)
 										local args = {target = enemyPos}
 										local results = TE_SafeActionResults(action, target, args, weapons)
-										local explosionPos = (results and results.explosion_pos) or enemyPos
+										local explosionPos = (results and results.explosion_pos)
 										local dropDist = (IsPoint(enemyPos) and IsPoint(explosionPos)) and DivCeil(enemyPos:Dist2D(explosionPos), const.SlabSizeX) or 99
 										if (enemyDist <= 20) and (weapons and (dropDist <= 1)) and not IsKindOfClasses(weapons, "FlareStick", "GlowStick", "SmokeGrenade", "TearGasGrenade", "ToxicGasGrenade") then
 											StartCombatAction(action.id, target, 0, args) -- B.O.W. Revenge Retaliation (Bombs)!
