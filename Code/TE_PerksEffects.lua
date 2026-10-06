@@ -1048,7 +1048,7 @@ DefineClass.ZombiePerk = {
 		PlaceObj('UnitReaction', {
 			Event = "OnDamageDone",
 			Handler = function (self, target, attack_target, dmg, hit_descr)
-				if target and target:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target and (attack_target ~= nil and target:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					local armourItems = attack_target:GetEquipedArmour()
 					local weapon = target:GetActiveWeapons("Firearm")
 					for _, item in ipairs(armourItems) do
@@ -1176,7 +1176,7 @@ DefineClass.MeleeTraining = {
 		PlaceObj('UnitReaction', {
 			Event = "OnCalcDamageAndEffects",
 			Handler = function (self, target, attacker, attack_target, action, weapon, attack_args, hit, data)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					if (action and action.ActionType == "Melee Attack") and (attack_args and attack_args.opportunity_attack_type) then
 						data.base_damage = Max(attack_target:GetTotalHitPoints(), 125) + Max(const.Combat.MaxGrit, 45) -- Melee OpportunityAttack will trigger insta-kill!
 					end
@@ -1631,7 +1631,7 @@ DefineClass.Counterfire = {
 		PlaceObj('UnitReaction', {
 			Event = "OnUnitAttack",
 			Handler = function (self, target, attacker, action, attack_target, results, attack_args)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 					if attack_args and attack_args.opportunity_attack_type and action.ActionType == "Ranged Attack" and not results.miss then -- Counterfire works with all opportunity_attack_type (NOT just OverwatchAttacks)!
 						local count = self:ResolveValue("counter") + 1
 						if count >= self:ResolveValue("hitsRequired") then
@@ -1839,7 +1839,7 @@ DefineClass.BattleFocus = {
 		PlaceObj('UnitReaction', {
 			Event = "OnUnitAttackResolved",
 			Handler = function (self, target, attacker, attack_target, action, attack_args, results, can_retaliate, combat_starting)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and IsKindOf(attack_target, "Unit") then
 				    local weapon = attacker:GetActiveWeapons()
 					if IsKindOf(results.weapon, "AssaultRifle") and (results.total_damage and results.total_damage >= 50) then -- BattleFocus will be Inspired if AssaultRifle total_damage >= 50!
 						attacker:AddStatusEffect("Inspired")
@@ -2085,7 +2085,7 @@ DefineClass.LineBreaker = {
 		PlaceObj('UnitReaction', {
 			Event = "OnDamageDone",
 			Handler = function (self, target, attack_target, dmg, hit_descr)
-				if target and target:IsOnEnemySide(attack_target) and target:IsPointBlankRange(attack_target) and IsKindOf(attack_target, "Unit") then
+				if target and (attack_target ~= nil and target:IsOnEnemySide(attack_target)) and target:IsPointBlankRange(attack_target) and IsKindOf(attack_target, "Unit") then
 				    self:SetParameter("LineBreaker_activated", true)
 				end
 			end,
@@ -2227,7 +2227,7 @@ DefineClass.TrickShot = {
 		PlaceObj('UnitReaction', {
 			Event = "OnCalcDamageAndEffects",
 			Handler = function (self, target, attacker, attack_target, action, weapon, attack_args, hit, data)
-				if target == attacker and attacker:IsOnEnemySide(attack_target) and attacker:IsPointBlankRange(attack_target) and IsKindOf(attack_target, "Unit") and (attack_args and attack_args.target_spot_group == "Head") and IsKindOfClasses(weapon, "Pistol", "Revolver") then
+				if target == attacker and (attack_target ~= nil and attacker:IsOnEnemySide(attack_target)) and attacker:IsPointBlankRange(attack_target) and IsKindOf(attack_target, "Unit") and (attack_args and attack_args.target_spot_group == "Head") and IsKindOfClasses(weapon, "Pistol", "Revolver") then
 					data.base_damage = Max(attack_target:GetTotalHitPoints(), 125) + Max(const.Combat.MaxGrit, 45) -- Handgun "Headshot" will trigger insta-kill!
 				end
 			end,

@@ -261,7 +261,7 @@ DefineClass.TacticalEnemy = {
 										local weapon = ally:GetActiveWeapons()
 										local weaponRange = weapon and weapon.WeaponRange or 0
 										if HasVisibilityTo(attacker, ally) and (weaponRange >= enemyDist) and not IsKindOf(weapon, "HeavyWeapon") then
-											ally:Retaliate(attacker) -- Enemy CQC Retaliate Attacks!
+											TE_AsyncRetaliate(ally, attacker) -- Enemy CQC Retaliate Attacks!
 										elseif (not HasVisibilityTo(attacker, ally) or (weaponRange < enemyDist)) and not ally:IsPointBlankRange(attacker) and not ally:HasStatusEffect("ThrowingRetaliationCounter") then
 											local actions = { "ThrowGrenadeA", "ThrowGrenadeB", "ThrowGrenadeC", "ThrowGrenadeD" }
 											for _, id in ipairs(actions) do
@@ -292,7 +292,7 @@ DefineClass.TacticalEnemy = {
 					local enemyDist = DivCeil(target:GetDist(attacker), const.SlabSizeX)
 					if (not g_Overwatch[target] and not g_Pindown[target]) and (target:IsAware() and not target:IsDead() and not target:IsDowned()) then
 						if HasVisibilityTo(attacker, target) and (weaponRange >= enemyDist) then
-							target:Retaliate(attacker) -- B.O.W. Revenge Retaliation!
+							TE_AsyncRetaliate(target, attacker) -- B.O.W. Revenge Retaliation!
 						elseif (not HasVisibilityTo(attacker, target) or (weaponRange < enemyDist)) and not target:IsPointBlankRange(attacker) and not attacker:HasStatusEffect("ThrowingRetaliationCounter") then
 							local actions = { "ThrowGrenadeA", "ThrowGrenadeB", "ThrowGrenadeC", "ThrowGrenadeD" }
 							for _, id in ipairs(actions) do

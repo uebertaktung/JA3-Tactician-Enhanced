@@ -553,7 +553,7 @@ DefineClass.TEActivation = {
 							if attacker and attacker:IsOnEnemySide(enemy) and IsKindOf(attacker, "Unit") and attacker.enemy_visual_contact then
 								if ((action and action.ActionType) == "Melee Attack" or (action and action.ActionType) == "Ranged Attack") and not (attack_args and attack_args.opportunity_attack_type) then
 									if enemy ~= attack_target and enemy:HasStatusEffect("EnemyCQCReaction") and (weaponRange >= enemyDist) and ((enemyDist < 16) or (enemy:HasStatusEffect("TacticalBOW") and (enemyDist <= 20))) and not IsKindOf(weapon, "HeavyWeapon") then
-										enemy:Retaliate(attacker) -- Enemy CQC Reaction Retaliates [!OPTIONAL!]
+										TE_AsyncRetaliate(enemy, attacker) -- Enemy CQC Reaction Retaliates [!OPTIONAL!]
 									end
 								end
 							end

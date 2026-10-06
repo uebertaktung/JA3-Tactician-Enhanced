@@ -2516,3 +2516,27 @@ if EnvEffectReaction == nil then
 	function EnvEffectReaction() end
 end
 -- ========== TE Patch Helpers End ==========
+
+
+-- ========== TE Patch Helpers 2 ==========
+-- Unit:IsOnEnemySide/IsOnAllySide index `other` without a nil check; reactions call them with a nil attack_target (explosions, traps...)
+if Unit and not rawget(Unit, "_te_side_fix") then
+	rawset(Unit, "_te_side_fix", true)
+	function Unit:IsOnEnemySide(other)
+		return other ~= nil and self.team and other.team and band(self.team.enemy_mask, other.team.team_mask) ~= 0
+	end
+	function Unit:IsOnAllySide(other)
+		return other ~= nil and self.team and other.team and band(self.team.ally_mask, other.team.team_mask) ~= 0
+	end
+end
+-- Unit:Retaliate waits (WaitMsg "Idle"), which is illegal inside a reaction (CallReactions runs handlers through pcall):
+-- run it in its own game-time thread instead
+function TE_AsyncRetaliate(unit, attacker)
+	if not IsValid(unit) or not IsValid(attacker) or unit._te_retaliating then return end
+	unit._te_retaliating = true
+	CreateGameTimeThread(function()
+		if IsValid(unit) and IsValid(attacker) then unit:Retaliate(attacker) end
+		if IsValid(unit) then unit._te_retaliating = nil end
+	end)
+end
+-- ========== TE Patch Helpers 2 End ==========

@@ -2610,7 +2610,7 @@ return {
 									if attacker and attacker:IsOnEnemySide(enemy) and IsKindOf(attacker, "Unit") and attacker.enemy_visual_contact then
 										if ((action and action.ActionType) == "Melee Attack" or (action and action.ActionType) == "Ranged Attack") and not (attack_args and attack_args.opportunity_attack_type) then
 											if enemy ~= attack_target and enemy:HasStatusEffect("EnemyCQCReaction") and (weaponRange >= enemyDist) and ((enemyDist < 16) or (enemy:HasStatusEffect("TacticalBOW") and (enemyDist <= 20))) and not IsKindOf(weapon, "HeavyWeapon") then
-												enemy:Retaliate(attacker) -- Enemy CQC Reaction Retaliates [!OPTIONAL!]
+												TE_AsyncRetaliate(enemy, attacker) -- Enemy CQC Reaction Retaliates [!OPTIONAL!]
 											end
 										end
 									end
@@ -3095,7 +3095,7 @@ return {
 												local weapon = ally:GetActiveWeapons()
 												local weaponRange = weapon and weapon.WeaponRange or 0
 												if HasVisibilityTo(attacker, ally) and (weaponRange >= enemyDist) and not IsKindOf(weapon, "HeavyWeapon") then
-													ally:Retaliate(attacker) -- Enemy CQC Retaliate Attacks!
+													TE_AsyncRetaliate(ally, attacker) -- Enemy CQC Retaliate Attacks!
 												elseif (not HasVisibilityTo(attacker, ally) or (weaponRange < enemyDist)) and not ally:IsPointBlankRange(attacker) and not ally:HasStatusEffect("ThrowingRetaliationCounter") then
 													local actions = { "ThrowGrenadeA", "ThrowGrenadeB", "ThrowGrenadeC", "ThrowGrenadeD" }
 													for _, id in ipairs(actions) do
@@ -3126,7 +3126,7 @@ return {
 							local enemyDist = DivCeil(target:GetDist(attacker), const.SlabSizeX)
 							if (not g_Overwatch[target] and not g_Pindown[target]) and (target:IsAware() and not target:IsDead() and not target:IsDowned()) then
 								if HasVisibilityTo(attacker, target) and (weaponRange >= enemyDist) then
-									target:Retaliate(attacker) -- B.O.W. Revenge Retaliation!
+									TE_AsyncRetaliate(target, attacker) -- B.O.W. Revenge Retaliation!
 								elseif (not HasVisibilityTo(attacker, target) or (weaponRange < enemyDist)) and not target:IsPointBlankRange(attacker) and not attacker:HasStatusEffect("ThrowingRetaliationCounter") then
 									local actions = { "ThrowGrenadeA", "ThrowGrenadeB", "ThrowGrenadeC", "ThrowGrenadeD" }
 									for _, id in ipairs(actions) do
